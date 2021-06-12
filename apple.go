@@ -14,6 +14,7 @@ type apple struct {
 func (a *apple) Update() error {
 	if a.eaten || a.pos.isZero() {
 		a.pos = makeRandomGridPos(a.pos.d)
+		a.eaten = false
 	}
 
 	return nil

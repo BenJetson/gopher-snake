@@ -8,7 +8,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-const gridCellSize = 5
+const gridCellSize = 10
 
 type gridDimensions struct {
 	cols, rows int
