@@ -2,6 +2,7 @@ package snake
 
 import (
 	ebiten "github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
 var _ ebiten.Game = (*Game)(nil)
@@ -11,9 +12,9 @@ type Game struct {
 	g grid
 }
 
-func NewGame() Game {
-	const margin = 20
+const margin = 20
 
+func NewGame() Game {
 	return Game{
 		g: newGrid(margin, margin, ScreenWidth-margin*2, ScreenHeight-margin*2),
 	}
@@ -21,6 +22,10 @@ func NewGame() Game {
 
 // Update updates a game by one tick.
 func (g *Game) Update() error {
+	if g.g.s.dead && inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+		*g = NewGame() // FIXME
+	}
+
 	return g.g.Update()
 }
 
