@@ -79,8 +79,8 @@ type gridPosition struct {
 
 func makeRandomGridPos(d gridDimensions) gridPosition {
 	return gridPosition{
-		x: rand.Intn(d.rows + 1),
-		y: rand.Intn(d.cols + 1),
+		x: rand.Intn(d.cols),
+		y: rand.Intn(d.rows),
 		d: d,
 	}
 }
