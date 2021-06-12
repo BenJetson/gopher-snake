@@ -8,11 +8,13 @@ import (
 
 func main() {
 	// Initialize the game object.
-	var g snake.Game
+	g := snake.NewGame()
 
 	// Configure game engine parameters.
-	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowSize(snake.ScreenWidth*3, snake.ScreenHeight*3)
 	ebiten.SetWindowTitle("Hello, World!")
+
+	ebiten.SetMaxTPS(8) // FIXME
 
 	// Run the main game loop.
 	err := ebiten.RunGame(&g)

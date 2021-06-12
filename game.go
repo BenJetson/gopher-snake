@@ -2,24 +2,45 @@ package snake
 
 import (
 	ebiten "github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 var _ ebiten.Game = (*Game)(nil)
 
 type Game struct {
 	// now time.Duration
+	g grid
+}
+
+func NewGame() Game {
+	const margin = 20
+
+	return Game{
+		g: newGrid(margin, margin, ScreenWidth-margin*2, ScreenHeight-margin*2),
+	}
 }
 
 // Update updates a game by one tick.
 func (g *Game) Update() error {
-	return nil
+	return g.g.Update()
 }
 
 // Draw draws the game screen. The given argument represents a screen image.
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello, World!")
+	// screen.Fill(color.RGBA{R: 0xff, G: 0x0, B: 0x0, A: 0xff})
+	// const rectOffset = 10
+	// ebitenutil.DrawRect(screen,
+	// 	rectOffset,
+	// 	rectOffset,
+	// 	ScreenWidth-2*rectOffset,
+	// 	ScreenHeight-2*rectOffset,
+	// 	color.RGBA{R: 0x00, G: 0x0, B: 0xff, A: 0xff})
+	// ebitenutil.DebugPrint(screen, "Hello, World!")
+
+	g.g.Draw(screen)
 }
+
+const ScreenWidth = 320
+const ScreenHeight = 240
 
 // Layout accepts a native outside size in device-independent pixels
 // and returns the game's logical screen size. On desktops, the outside is a
@@ -37,8 +58,8 @@ func (g *Game) Layout(
 	// screenWidth = outsideWidth
 	// screenHeight = outsideHeight
 
-	screenWidth = 320
-	screenHeight = 240
+	screenWidth = ScreenWidth
+	screenHeight = ScreenHeight
 
 	return
 }
