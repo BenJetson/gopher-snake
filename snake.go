@@ -103,6 +103,16 @@ func (s *snake) move() {
 	}
 }
 
+func (s *snake) preventCannibalism() {
+	for i, fa := range s.fragments {
+		for j, fb := range s.fragments {
+			if i != j && fa.pos == fb.pos {
+				s.dead = true
+			}
+		}
+	}
+}
+
 func (s *snake) Update(a *apple) error {
 	if len(s.fragments) < 1 {
 		s.fragments = append(s.fragments, &fragment{
@@ -115,6 +125,7 @@ func (s *snake) Update(a *apple) error {
 		s.readKeyboard()
 		s.searchForFood(a)
 		s.move()
+		s.preventCannibalism()
 	} else {
 		s.heading = directionStationary
 	}
